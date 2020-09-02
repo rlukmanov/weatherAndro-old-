@@ -12,4 +12,6 @@ class TemperatureDailyModel: Codable {
     var day: Float?
     var morn: Float?
     var night: Float?
+    var min: Float?
+    var max: Float?
 }

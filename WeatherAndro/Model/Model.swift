@@ -8,7 +8,7 @@
 
 import Foundation
 
-let weekOfDaysArray = ["Sun", "Mon", "Tue", "Wed", "Thur",
+let weekOfDaysArray = ["Sun", "Mon", "Tue", "Wed", "Thu",
                        "Fri", "Sat"]
 let monthArray = ["January", "February", "March", "April",
                   "May", "June", "July", "August", "September",
@@ -98,9 +98,9 @@ func convertTimeListHour(timeFirst: Float, timezoneOffset: Int) -> [String] {
     return listResult
 }
 
-// MARK: - getSizePillar func
+// MARK: - getSizePillarHourly func
 
-func getSizePillar(hourlyList: [HourlyModel], maxSize: Float) -> [Float] {
+func getSizePillarHourly(hourlyList: [HourlyModel], maxSize: Float) -> [Float] {
     var listResult = [Float]()
     var currentTemperature: Float
     var stepValue: Float
@@ -145,8 +145,71 @@ func getHourlyListTemperature(hourlyList: [HourlyModel]) -> [String] {
     return listResult
 }
 
-// MARK: - convertData
+// MARK: - getDailyList func
 
-func convertData() {
+func getDailyList(dailyList: [DailyModel], timezoneOffset: Int) -> [String] {
+    var resultList = [String]()
+    var calendar = Calendar.current
+    calendar.timeZone = TimeZone(secondsFromGMT: 0)!
     
+    resultList.append("Today")
+    
+    for i in 1..<7 {
+        let date = Date(timeIntervalSince1970: TimeInterval((dailyList[i].dt)!))
+        
+        resultList.append(weekOfDaysArray[calendar.component(.weekday, from: date) - 1])
+    }
+    
+    return resultList
 }
+
+// MARK: - getSizePillarDaily func
+
+func getSizePillarDaily(dailyList: [DailyModel], maxSize: Float) -> [(Float, Float)] {
+    var listResult = [(Float, Float)]() // first - offset bottom, second - height pillar
+    var currentTemperatureMin: Float
+    var currentTemperatureMax: Float
+    var stepValue: Float
+    var min: Float = (dailyList.first?.temp?.max)!
+    var max: Float = 0
+    
+    for i in 0..<7 {
+        currentTemperatureMin = (dailyList[i].temp?.min)!
+        currentTemperatureMax = (dailyList[i].temp?.max)!
+        
+        if currentTemperatureMax > max {
+            max = currentTemperatureMax
+        }
+        
+        if currentTemperatureMin < min {
+            min = currentTemperatureMin
+        }
+    }
+    
+    stepValue = maxSize / (max - min)
+    
+    for i in 0..<7 {
+        listResult.append((stepValue * ((dailyList[i].temp?.min)! - min), maxSize - stepValue * (max - (dailyList[i].temp?.max)!)))
+        listResult[i].1 -= listResult[i].0
+    }
+    
+    return listResult
+
+}
+
+// MARK: - getDailyListTemperature func
+
+func getDailyListTemperature(dailyList: [DailyModel]) -> [(String, String)] {
+    var listResult = [(String, String)]()
+    var temperatureMax: String
+    var temperatureMin: String
+    
+    for i in 0..<7 {
+        temperatureMax = String(convertDegree(temperature: (dailyList[i].temp?.max)!, typeResult: .celsius)) + "\u{00B0}"
+        temperatureMin = String(convertDegree(temperature: (dailyList[i].temp?.min)!, typeResult: .celsius)) + "\u{00B0}"
+        listResult.append((temperatureMin, temperatureMax))
+    }
+    
+    return listResult
+}
+
