@@ -25,6 +25,9 @@
 		E1AC9E7C24FEB85600F5C1D8 /* DailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E7B24FEB85600F5C1D8 /* DailyModel.swift */; };
 		E1AC9E7F24FEB8B600F5C1D8 /* TemperatureDailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E7E24FEB8B600F5C1D8 /* TemperatureDailyModel.swift */; };
 		E1AC9E8224FF07A100F5C1D8 /* HourlyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E8124FF07A100F5C1D8 /* HourlyModel.swift */; };
+		E1AC9E882500655400F5C1D8 /* HourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E872500655300F5C1D8 /* HourlyView.swift */; };
+		E1AC9E8A25006CEC00F5C1D8 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E8925006CEC00F5C1D8 /* DailyView.swift */; };
+		E1AC9E8C2500712600F5C1D8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E8B2500712600F5C1D8 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +51,9 @@
 		E1AC9E7B24FEB85600F5C1D8 /* DailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyModel.swift; sourceTree = "<group>"; };
 		E1AC9E7E24FEB8B600F5C1D8 /* TemperatureDailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureDailyModel.swift; sourceTree = "<group>"; };
 		E1AC9E8124FF07A100F5C1D8 /* HourlyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyModel.swift; sourceTree = "<group>"; };
+		E1AC9E872500655300F5C1D8 /* HourlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyView.swift; sourceTree = "<group>"; };
+		E1AC9E8925006CEC00F5C1D8 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
+		E1AC9E8B2500712600F5C1D8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,7 @@
 		E147E3FC24F8218B004F2360 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E1AC9E86250064DB00F5C1D8 /* View */,
 				E147E3EC24F82073004F2360 /* PageScrollViewController.swift */,
 				E147E40E24FD1D14004F2360 /* LoadData.swift */,
 				E147E3FE24FC6B63004F2360 /* Location.swift */,
@@ -175,6 +182,16 @@
 			path = HourlyModel;
 			sourceTree = "<group>";
 		};
+		E1AC9E86250064DB00F5C1D8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E1AC9E8B2500712600F5C1D8 /* MainView.swift */,
+				E1AC9E872500655300F5C1D8 /* HourlyView.swift */,
+				E1AC9E8925006CEC00F5C1D8 /* DailyView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -251,10 +268,13 @@
 				E147E41224FD51B9004F2360 /* Model.swift in Sources */,
 				E147E3ED24F82073004F2360 /* PageScrollViewController.swift in Sources */,
 				E147E40D24FC6D44004F2360 /* WeatherOfferModel.swift in Sources */,
+				E1AC9E8A25006CEC00F5C1D8 /* DailyView.swift in Sources */,
+				E1AC9E882500655400F5C1D8 /* HourlyView.swift in Sources */,
 				E147E40F24FD1D14004F2360 /* LoadData.swift in Sources */,
 				E1AC9E8224FF07A100F5C1D8 /* HourlyModel.swift in Sources */,
 				E1AC9E7F24FEB8B600F5C1D8 /* TemperatureDailyModel.swift in Sources */,
 				E147E40524FC6CD5004F2360 /* OfferModel.swift in Sources */,
+				E1AC9E8C2500712600F5C1D8 /* MainView.swift in Sources */,
 				E147E40B24FC6D22004F2360 /* CityModel.swift in Sources */,
 				E147E3FF24FC6B63004F2360 /* Location.swift in Sources */,
 				E15B6B3E24FEAEBA004027EC /* OneCallApiModel.swift in Sources */,
