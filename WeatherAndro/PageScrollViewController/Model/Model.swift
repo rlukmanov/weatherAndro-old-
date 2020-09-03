@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 let weekOfDaysArray = ["Sun", "Mon", "Tue", "Wed", "Thu",
                        "Fri", "Sat"]
@@ -145,6 +146,19 @@ func getHourlyListTemperature(hourlyList: [HourlyModel]) -> [String] {
     return listResult
 }
 
+// MARK: - getListHourlyIcons
+
+func getListHourlyIcons(hourlyList: [HourlyModel]) -> [String] {
+    var resultList = [String]()
+    
+    for i in 0..<8 {
+        resultList.append((hourlyList[3 * i + 1].weather?.first?.icon)!)
+    }
+    
+    return resultList
+}
+
+
 // MARK: - getDailyList func
 
 func getDailyList(dailyList: [DailyModel], timezoneOffset: Int) -> [String] {
@@ -250,4 +264,39 @@ func getSunsetSunriseTime(dailyList: [DailyModel], timeZone: Int) -> (String, St
     resultTime.1 = String(hour) + ":" + minutesString
     
     return resultTime
+}
+
+// MARK: - getImage funcs
+
+func getImage(nameImage: String, height: Float) -> UIImage {
+    guard let image = UIImage(named: nameImage) else {
+        return UIImage()
+    }
+    
+    let ratio = image.size.width / image.size.height
+    
+    return resizeImage(image: image, targetSize: CGSize(width: ratio * CGFloat(height), height: CGFloat(height)))
+}
+
+func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+    let size = image.size
+
+    let widthRatio = targetSize.width / size.width
+    let heightRatio = targetSize.height / size.height
+
+    var newSize: CGSize
+    if(widthRatio > heightRatio) {
+        newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+    } else {
+        newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+    }
+
+    let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+    UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+    image.draw(in: rect)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+
+    return newImage!
 }

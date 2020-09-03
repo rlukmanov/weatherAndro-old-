@@ -150,6 +150,7 @@ class HourlyView: UIView {
     
     func setupData(resultOneCall: OneCallApiModel) {
         setHourlyTimeValue(timeFirst: (resultOneCall.hourly?.first?.dt)!, timezoneOffset: (resultOneCall.timezone_offset)!)
+        setHourlyIcons(hourlyList: (resultOneCall.hourly)!)
         setHourlyPillar(hourlyList: (resultOneCall.hourly)!, maxSize: 37)
         setHourlyTemperature(hourlyList: (resultOneCall.hourly)!)
     }
@@ -166,6 +167,26 @@ class HourlyView: UIView {
             timeValueLabel.font = .systemFont(ofSize: 15, weight: .regular)
             hourlyTimeStackView.addArrangedSubview(timeValueLabel)
             hourlyTimeValueArray.append(timeValueLabel)
+        }
+    }
+    
+    private func setHourlyIcons(hourlyList: [HourlyModel]) {
+        var listIcons: [String]
+        
+        listIcons = getListHourlyIcons(hourlyList: hourlyList)
+        
+        for i in 0..<listIcons.count {
+            let iconImageView = UIImageView()
+            
+            iconImageView.image = UIImage(named: listIcons[i])
+            iconImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            hourlyContentView.addSubview(iconImageView)
+            
+            iconImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            iconImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            iconImageView.centerXAnchor.constraint(equalTo: hourlyTimeValueArray[i].centerXAnchor, constant: -1).isActive = true
+            iconImageView.bottomAnchor.constraint(equalTo: hourlyContentView.bottomAnchor, constant: -107).isActive = true
         }
     }
     

@@ -20,7 +20,7 @@ extension PageScrollViewController {
                 guard let result = result else {
             
                     DispatchQueue.main.async {
-                        print("Didn't find this city")
+                        print("Didn't find this city!")
 
                         let alert = UIAlertController(title: "Error",
                                                       message: "The city was not found. Check and change the name",
@@ -44,7 +44,9 @@ extension PageScrollViewController {
             
             DispatchQueue.main.async {
                 guard let result = result else {
-            
+                    
+                    
+                    
                     DispatchQueue.main.async {
                         print("Didn't find this city")
 

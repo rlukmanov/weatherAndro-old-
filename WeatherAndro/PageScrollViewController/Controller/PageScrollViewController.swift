@@ -117,6 +117,15 @@ class PageScrollViewController: UIViewController {
         return temperatureValueLabel
     }()
     
+    private let weatherIconImageView: UIImageView = {
+        let weatherIconImageView = UIImageView()
+        
+        //weatherIconImageView.a
+        weatherIconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return weatherIconImageView
+    }()
+    
     // MARK: - feels like property
     
     private let feelsLikeLabel: UILabel = {
@@ -188,6 +197,7 @@ class PageScrollViewController: UIViewController {
         temperatureValueLabel.text = convertDegree(temperature: (resultOneCall.current?.temp)!, typeResult: .celsius) + "\u{00B0}"
         typeWeatherLabel.text = resultOneCall.current?.weather?.first?.main
         dateTimeLabel.text = currentData(timeZone: (resultOneCall.timezone_offset)!)
+        weatherIconImageView.image = UIImage(named: (resultOneCall.current?.weather?.first?.icon)!)
         
         feelsLikeLabel.text = convertDegree(temperature: (resultOneCall.daily?.first?.temp?.max)!, typeResult: .celsius)
         feelsLikeLabel.text! += "\u{00B0}"
@@ -217,6 +227,7 @@ class PageScrollViewController: UIViewController {
         pageScrollView.addSubview(contentView)
         
         contentView.addSubview(temperatureValueLabel)
+        contentView.addSubview(weatherIconImageView)
         contentView.addSubview(feelsLikeLabel)
         contentView.addSubview(typeWeatherLabel)
         
@@ -240,6 +251,7 @@ class PageScrollViewController: UIViewController {
         setupConstraintsContentView()
         
         setupConstraintsTemperatureValueLabel()
+        setupConstraintsWeatherIconImageView()
         setupConstraintsFeelsLikeLabel()
         setupConstraintsTypeWeatherLabel()
         
@@ -303,6 +315,13 @@ class PageScrollViewController: UIViewController {
     private func setupConstraintsTemperatureValueLabel() {
         temperatureValueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 13).isActive = true
         temperatureValueLabel.leftAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -16).isActive = true
+    }
+    
+    private func setupConstraintsWeatherIconImageView() {
+        weatherIconImageView.rightAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -27).isActive = true
+        weatherIconImageView.heightAnchor.constraint(equalToConstant: 64).isActive = true
+        weatherIconImageView.widthAnchor.constraint(equalToConstant: 64).isActive = true
+        weatherIconImageView.bottomAnchor.constraint(equalTo: mainView.topAnchor, constant: -145).isActive = true
     }
     
     private func setupConstraintsFeelsLikeLabel() {

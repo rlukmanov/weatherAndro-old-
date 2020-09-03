@@ -11,4 +11,5 @@ import Foundation
 class HourlyModel: Codable {
     var dt: Float?
     var temp: Float?
+    var weather: [WeatherHourlyModel]?
 }

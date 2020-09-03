@@ -102,7 +102,6 @@ class NetworkManager {
                     completion(nil)
                     return
                 }
-
                 completion(weather)
             } else {
                 completion(nil)
