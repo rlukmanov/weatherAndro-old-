@@ -76,6 +76,24 @@ class DetailsView: UIView {
         return detailsSunriseTimeLabel
     }()
     
+    private let sunriseImageView: UIImageView = {
+        let sunriseImageView = UIImageView()
+        
+        sunriseImageView.image = UIImage(named: "Sunrise")
+        sunriseImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return sunriseImageView
+    }()
+    
+    private let sunsetImageView: UIImageView = {
+        let sunsetImageView = UIImageView()
+        
+        sunsetImageView.image = UIImage(named: "Sunrise")
+        sunsetImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return sunsetImageView
+    }()
+    
     // MARK: - configure func
     
     func configure() {
@@ -96,6 +114,8 @@ class DetailsView: UIView {
         addSubview(detailsSunriseTitleLabel)
         addSubview(detailsSunsetTimeLabel)
         addSubview(detailsSunriseTimeLabel)
+        addSubview(sunriseImageView)
+        addSubview(sunsetImageView)
     }
     
     // MARK: - set funcs
@@ -117,6 +137,8 @@ class DetailsView: UIView {
         setupConstraintsDetailsSunriseTitleLabel()
         setupConstraintsDetailsSunsetTimeLabel()
         setupConstraintsDetailsSunriseTimeLabel()
+        setupConstraintsSunriseImageView()
+        setupConstraintsSunsetImageView()
     }
     
     private func setupConstraintsDetailsTitleLabel() {
@@ -148,5 +170,19 @@ class DetailsView: UIView {
     private func setupConstraintsDetailsSunriseTimeLabel() {
         detailsSunriseTimeLabel.rightAnchor.constraint(equalTo: detailsSeparatorImageView.rightAnchor).isActive = true
         detailsSunriseTimeLabel.topAnchor.constraint(equalTo: detailsSunriseTitleLabel.topAnchor).isActive = true
+    }
+    
+    private func setupConstraintsSunriseImageView() {
+        sunriseImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 37).isActive = true
+        sunriseImageView.centerYAnchor.constraint(equalTo: detailsSunriseTitleLabel.centerYAnchor).isActive = true
+        sunriseImageView.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        sunriseImageView.widthAnchor.constraint(equalToConstant: 18).isActive = true
+    }
+    
+    private func setupConstraintsSunsetImageView() {
+        sunsetImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 37).isActive = true
+        sunsetImageView.centerYAnchor.constraint(equalTo: detailsSunsetTitleLabel.centerYAnchor).isActive = true
+        sunsetImageView.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        sunsetImageView.widthAnchor.constraint(equalToConstant: 18).isActive = true
     }
 }

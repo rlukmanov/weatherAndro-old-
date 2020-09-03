@@ -160,6 +160,26 @@ class PageScrollViewController: UIViewController {
     
     private let detailsView = DetailsView()
     
+    private let apiIconImageView: UIImageView = {
+        let apiIconImageView = UIImageView()
+        
+        apiIconImageView.image = UIImage(named: "OpenWeatherIcon-2")
+        apiIconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return apiIconImageView
+    }()
+    
+    private let apiNameLabel: UILabel = {
+        let apiNameLabel = UILabel()
+        
+        apiNameLabel.text = "OpenWeather Api"
+        apiNameLabel.textColor = .white
+        apiNameLabel.font = .systemFont(ofSize: 10, weight: .medium)
+        apiNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return apiNameLabel
+    }()
+    
     // MARK: - viewDidLoad func
 
     override func viewDidLoad() {
@@ -235,6 +255,9 @@ class PageScrollViewController: UIViewController {
         contentView.addSubview(hourlyView)
         contentView.addSubview(dailyView)
         contentView.addSubview(detailsView)
+        
+        contentView.addSubview(apiIconImageView)
+        contentView.addSubview(apiNameLabel)
     }
     
     // MARK: - setup constraints funcs
@@ -259,6 +282,9 @@ class PageScrollViewController: UIViewController {
         setupConstraintsHourlyView()
         setupConstraintsDailyView()
         setupConstraintsDetailsView()
+        
+        setupConstraintsApiIconImageView()
+        setupConstraintsApiNameLabel()
     }
     
     private func setupConstraintsBackgroundImageView() {
@@ -361,6 +387,18 @@ class PageScrollViewController: UIViewController {
         detailsView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         detailsView.heightAnchor.constraint(equalToConstant: 138).isActive = true
         detailsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -35).isActive = true
+    }
+    
+    private func setupConstraintsApiIconImageView() {
+        apiIconImageView.widthAnchor.constraint(equalToConstant: 23).isActive = true
+        apiIconImageView.heightAnchor.constraint(equalToConstant: 17).isActive = true
+        apiIconImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 37).isActive = true
+        apiIconImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
+    }
+    
+    private func setupConstraintsApiNameLabel() {
+        apiNameLabel.leftAnchor.constraint(equalTo: apiIconImageView.rightAnchor, constant: 6).isActive = true
+        apiNameLabel.centerYAnchor.constraint(equalTo: apiIconImageView.centerYAnchor).isActive = true
     }
 }
 

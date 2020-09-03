@@ -148,11 +148,13 @@ class DailyView: UIView {
     func setupData(resultOneCall: OneCallApiModel) {
         setDailyTimeValue(dailyList: (resultOneCall.daily)!,  timezoneOffset: (resultOneCall.timezone_offset)!)
         setDailyPillar(dailyList: (resultOneCall.daily)!, maxSize: 56)
+        setDailyIcons(dailyList: (resultOneCall.daily)!)
+        setDailyPercipitation(dailyList: (resultOneCall.daily)!)
         setDailyTemperature(dailyList: (resultOneCall.daily)!)
     }
     
     func setDailyTimeValue(dailyList: [DailyModel], timezoneOffset: Int) {
-        var listWeekdays = [String]()
+        var listWeekdays: [String]
         
         listWeekdays = getDailyList(dailyList: dailyList, timezoneOffset: timezoneOffset)
         
@@ -164,6 +166,89 @@ class DailyView: UIView {
             weekdayLabel.textAlignment = .center
             weekdayLabel.font = .systemFont(ofSize: 15, weight: .regular)
             dailyWeekdaysStackView.addArrangedSubview(weekdayLabel)
+        }
+    }
+    
+    func setDailyIcons(dailyList: [DailyModel]) {
+        var listIcons: [(String, String)]
+        
+        listIcons = getListDailyIcons(dailyList: dailyList)
+        
+        for i in 0..<listIcons.count {
+            let iconTopImageView = UIImageView()
+            let iconBottomImageView = UIImageView()
+            let lineImageView = UIImageView()
+            
+            // Top icon
+            
+            iconTopImageView.image = UIImage(named: listIcons[i].0)
+            iconTopImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            dailyContentView.addSubview(iconTopImageView)
+            
+            iconTopImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            iconTopImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            iconTopImageView.rightAnchor.constraint(equalTo: dailyPillarTopImageViewArray[i].centerXAnchor).isActive = true
+            iconTopImageView.bottomAnchor.constraint(equalTo: dailyContentView.bottomAnchor, constant: -166).isActive = true
+            
+            // line
+            
+            lineImageView.image = UIImage(named: "DailyIconSeparator")
+            lineImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            dailyContentView.addSubview(lineImageView)
+            
+            lineImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            lineImageView.widthAnchor.constraint(equalToConstant: 32).isActive = true
+            lineImageView.centerXAnchor.constraint(equalTo: dailyPillarTopImageViewArray[i].centerXAnchor).isActive = true
+            lineImageView.bottomAnchor.constraint(equalTo: dailyContentView.bottomAnchor, constant: -146).isActive = true
+            
+            // Bottom icon
+            
+            iconBottomImageView.image = UIImage(named: listIcons[i].1)
+            iconBottomImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            dailyContentView.addSubview(iconBottomImageView)
+            
+            iconBottomImageView.heightAnchor.constraint(equalTo: iconTopImageView.heightAnchor).isActive = true
+            iconBottomImageView.widthAnchor.constraint(equalTo: iconTopImageView.widthAnchor).isActive = true
+            iconBottomImageView.rightAnchor.constraint(equalTo: dailyPillarTopImageViewArray[i].centerXAnchor, constant: 29).isActive = true
+            iconBottomImageView.bottomAnchor.constraint(equalTo: dailyContentView.bottomAnchor, constant: -137).isActive = true
+        }
+    }
+    
+    private func setDailyPercipitation(dailyList: [DailyModel]) {
+        var listProbabilities: [String]
+           
+        listProbabilities = getListDailyPercipitation(dailyList: dailyList)
+           
+        for i in 0..<listProbabilities.count {
+            let iconImageView = UIImageView()
+            let probabilityLabel = UILabel()
+            
+            // icon
+            
+            iconImageView.image = UIImage(named: "DropWaterIcon")
+            iconImageView.translatesAutoresizingMaskIntoConstraints = false
+               
+            dailyContentView.addSubview(iconImageView)
+               
+            iconImageView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+            iconImageView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            iconImageView.leftAnchor.constraint(equalTo: dailyPillarTopImageViewArray[i].centerXAnchor, constant: -12).isActive = true
+            iconImageView.bottomAnchor.constraint(equalTo: dailyContentView.bottomAnchor, constant: -118).isActive = true
+            
+            // value
+            
+            probabilityLabel.text = listProbabilities[i]
+            probabilityLabel.textColor = .white
+            probabilityLabel.font = .systemFont(ofSize: 10, weight: .medium)
+            probabilityLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            dailyContentView.addSubview(probabilityLabel)
+            
+            probabilityLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 4).isActive = true
+            probabilityLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor).isActive = true
         }
     }
     

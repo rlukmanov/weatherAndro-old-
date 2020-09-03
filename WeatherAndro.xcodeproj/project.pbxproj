@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E12F1DB5250196CA007AD7B2 /* WeatherDailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12F1DB4250196CA007AD7B2 /* WeatherDailyModel.swift */; };
 		E147E3E924F82073004F2360 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E147E3E824F82073004F2360 /* AppDelegate.swift */; };
 		E147E3ED24F82073004F2360 /* PageScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E147E3EC24F82073004F2360 /* PageScrollViewController.swift */; };
 		E147E3F224F82079004F2360 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E147E3F124F82079004F2360 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E12F1DB4250196CA007AD7B2 /* WeatherDailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDailyModel.swift; sourceTree = "<group>"; };
 		E147E3E524F82073004F2360 /* WeatherAndro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAndro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E147E3E824F82073004F2360 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E147E3EC24F82073004F2360 /* PageScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageScrollViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			children = (
 				E1AC9E7B24FEB85600F5C1D8 /* DailyModel.swift */,
 				E1AC9E7E24FEB8B600F5C1D8 /* TemperatureDailyModel.swift */,
+				E12F1DB4250196CA007AD7B2 /* WeatherDailyModel.swift */,
 			);
 			path = DailyModel;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				E147E40224FC6C66004F2360 /* NetworkManager.swift in Sources */,
 				E147E41224FD51B9004F2360 /* Model.swift in Sources */,
 				E147E3ED24F82073004F2360 /* PageScrollViewController.swift in Sources */,
+				E12F1DB5250196CA007AD7B2 /* WeatherDailyModel.swift in Sources */,
 				E147E40D24FC6D44004F2360 /* WeatherOfferModel.swift in Sources */,
 				E1AC9E8A25006CEC00F5C1D8 /* DailyView.swift in Sources */,
 				E1AC9E8E25007FAC00F5C1D8 /* DetailsView.swift in Sources */,

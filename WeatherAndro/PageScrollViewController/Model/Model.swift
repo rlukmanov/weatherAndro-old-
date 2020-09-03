@@ -192,6 +192,40 @@ func getDailyList(dailyList: [DailyModel], timezoneOffset: Int) -> [String] {
     return resultList
 }
 
+// MARK: - getListDailyIcons func
+
+func getListDailyIcons(dailyList: [DailyModel]) -> [(String, String)] {
+    var resultList = [(String, String)]() // first - day, second - night
+    var dayIcon: String
+    var nightIcon: String
+    
+    for i in 0..<7 {
+        dayIcon = (dailyList[i].weather?.first?.icon)!
+        nightIcon = dayIcon
+        _ = nightIcon.popLast()
+        nightIcon.append("n")
+        
+        resultList.append((dayIcon, nightIcon))
+    }
+    
+    return resultList
+}
+
+// MARK: - getListHourlyPercipitation func
+
+func getListDailyPercipitation(dailyList: [DailyModel]) -> [String] {
+    var resultList = [String]()
+    var probability: Int
+    
+    for i in 0..<7 {
+        probability = Int(round((dailyList[i].pop)!) * 100)
+        
+        resultList.append(String(probability) + "%")
+    }
+    
+    return resultList
+}
+
 // MARK: - getSizePillarDaily func
 
 func getSizePillarDaily(dailyList: [DailyModel], maxSize: Float) -> [(Float, Float)] {

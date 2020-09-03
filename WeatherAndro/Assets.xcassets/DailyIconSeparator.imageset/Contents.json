@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "DailyIconSeparator.pdf",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "DailyIconSeparator-1.pdf",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "DailyIconSeparator-2.pdf",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -52,6 +52,37 @@ class MainView: UIView {
         return lineInfoSeparator
     }()
     
+    private let uvIndexImageView: UIImageView = {
+        let uvIndexImageView = UIImageView()
+        
+        uvIndexImageView.image = UIImage(named: "UVIndexIcon")
+        uvIndexImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return uvIndexImageView
+    }()
+    
+    private let pressionTitleLabel: UILabel = {
+        let pressionTitleLabel = UILabel()
+        
+        pressionTitleLabel.text = "Atmo pressure"
+        pressionTitleLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        pressionTitleLabel.textColor = UIColor(red: 233.0 / 255.0, green: 250.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
+        pressionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return pressionTitleLabel
+    }()
+    
+    private let pressionValueLabel: UILabel = {
+        let pressionValueLabel = UILabel()
+        
+        pressionValueLabel.text = "hPA"
+        pressionValueLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        pressionValueLabel.textColor = UIColor(red: 233.0 / 255.0, green: 250.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
+        pressionValueLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return pressionValueLabel
+    }()
+    
     // MARK: - configure func
     
     func configure() {
@@ -70,12 +101,16 @@ class MainView: UIView {
         addSubview(dropIconImageView)
         addSubview(precipitationTitleLabel)
         addSubview(precipitationValueLabel)
+        addSubview(uvIndexImageView)
+        addSubview(pressionTitleLabel)
+        addSubview(pressionValueLabel)
     }
     
     // MARK: - set func
     
     func setupData(resultFiveDay: OfferModel) {
         precipitationValueLabel.text = precipitationConvert(value: (resultFiveDay.list?.first?.pop)!) + "%"
+        pressionValueLabel.text = String((resultFiveDay.list?.first?.main?.pressure)!) + " hPA"
     }
     
     // MARK: - setup constraints
@@ -85,6 +120,9 @@ class MainView: UIView {
         setupConstraintsDropIconImageView()
         setupConstraintsPrecipitationTitleLabel()
         setupConstraintsPrecipitationValueLabel()
+        setupConstraintsUvIndexImageView()
+        setupConstraintsPressionTitleLabel()
+        setupConstraintsPressionValueLabel()
     }
     
     private func setupConstraintsLineInfoSeparator() {
@@ -108,5 +146,22 @@ class MainView: UIView {
     private func setupConstraintsPrecipitationValueLabel() {
         precipitationValueLabel.topAnchor.constraint(equalTo: precipitationTitleLabel.bottomAnchor, constant: 7).isActive = true
         precipitationValueLabel.leftAnchor.constraint(equalTo: precipitationTitleLabel.leftAnchor).isActive = true
+    }
+    
+    private func setupConstraintsUvIndexImageView() {
+        uvIndexImageView.leftAnchor.constraint(equalTo: lineInfoSeparator.rightAnchor, constant: 19).isActive = true
+        uvIndexImageView.centerYAnchor.constraint(equalTo: dropIconImageView.centerYAnchor).isActive = true
+        uvIndexImageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        uvIndexImageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+    }
+    
+    private func setupConstraintsPressionTitleLabel() {
+        pressionTitleLabel.leftAnchor.constraint(equalTo: uvIndexImageView.rightAnchor, constant: 19).isActive = true
+        pressionTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 30).isActive = true
+    }
+    
+    private func setupConstraintsPressionValueLabel() {
+        pressionValueLabel.topAnchor.constraint(equalTo: pressionTitleLabel.bottomAnchor, constant: 7).isActive = true
+        pressionValueLabel.leftAnchor.constraint(equalTo: pressionTitleLabel.leftAnchor).isActive = true
     }
 }

@@ -13,4 +13,6 @@ class DailyModel: Codable {
     var sunrise: Float?
     var sunset: Float?
     var temp: TemperatureDailyModel?
+    var pop: Float?
+    var weather: [WeatherDailyModel]?
 }

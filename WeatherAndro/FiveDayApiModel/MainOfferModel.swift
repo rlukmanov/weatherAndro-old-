@@ -11,4 +11,5 @@ import Foundation
 class MainOfferModel: Codable {
     var temp: Float? // Temperature
     var feels_like: Float? // Temperature. This temperature parameter accounts for the human perception of weather
+    var pressure: Int?
 }
