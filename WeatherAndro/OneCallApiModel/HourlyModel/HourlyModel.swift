@@ -12,4 +12,5 @@ class HourlyModel: Codable {
     var dt: Float?
     var temp: Float?
     var weather: [WeatherHourlyModel]?
+    var pop: Float?
 }

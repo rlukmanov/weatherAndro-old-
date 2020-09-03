@@ -151,6 +151,7 @@ class HourlyView: UIView {
     func setupData(resultOneCall: OneCallApiModel) {
         setHourlyTimeValue(timeFirst: (resultOneCall.hourly?.first?.dt)!, timezoneOffset: (resultOneCall.timezone_offset)!)
         setHourlyIcons(hourlyList: (resultOneCall.hourly)!)
+        setHourlyPercipitation(hourlyList: (resultOneCall.hourly)!)
         setHourlyPillar(hourlyList: (resultOneCall.hourly)!, maxSize: 37)
         setHourlyTemperature(hourlyList: (resultOneCall.hourly)!)
     }
@@ -187,6 +188,41 @@ class HourlyView: UIView {
             iconImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
             iconImageView.centerXAnchor.constraint(equalTo: hourlyTimeValueArray[i].centerXAnchor, constant: -1).isActive = true
             iconImageView.bottomAnchor.constraint(equalTo: hourlyContentView.bottomAnchor, constant: -107).isActive = true
+        }
+    }
+    
+    private func setHourlyPercipitation(hourlyList: [HourlyModel]) {
+        var listProbabilities: [String]
+           
+        listProbabilities = getListHourlyPercipitation(hourlyList: hourlyList)
+           
+        for i in 0..<listProbabilities.count {
+            let iconImageView = UIImageView()
+            let probabilityLabel = UILabel()
+            
+            // icon
+            
+            iconImageView.image = UIImage(named: "DropWaterIcon")
+            iconImageView.translatesAutoresizingMaskIntoConstraints = false
+               
+            hourlyContentView.addSubview(iconImageView)
+               
+            iconImageView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+            iconImageView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            iconImageView.leftAnchor.constraint(equalTo: hourlyTimeValueArray[i].centerXAnchor, constant: -15).isActive = true
+            iconImageView.bottomAnchor.constraint(equalTo: hourlyContentView.bottomAnchor, constant: -85).isActive = true
+            
+            // value
+            
+            probabilityLabel.text = listProbabilities[i]
+            probabilityLabel.textColor = .white
+            probabilityLabel.font = .systemFont(ofSize: 10, weight: .medium)
+            probabilityLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            hourlyContentView.addSubview(probabilityLabel)
+            
+            probabilityLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 4).isActive = true
+            probabilityLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor).isActive = true
         }
     }
     

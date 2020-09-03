@@ -146,13 +146,28 @@ func getHourlyListTemperature(hourlyList: [HourlyModel]) -> [String] {
     return listResult
 }
 
-// MARK: - getListHourlyIcons
+// MARK: - getListHourlyIcons func
 
 func getListHourlyIcons(hourlyList: [HourlyModel]) -> [String] {
     var resultList = [String]()
     
     for i in 0..<8 {
         resultList.append((hourlyList[3 * i + 1].weather?.first?.icon)!)
+    }
+    
+    return resultList
+}
+
+// MARK: - getListHourlyPercipitation func
+
+func getListHourlyPercipitation(hourlyList: [HourlyModel]) -> [String] {
+    var resultList = [String]()
+    var probability: Int
+    
+    for i in 0..<8 {
+        probability = Int(round((hourlyList[3 * i + 1].pop)!) * 100)
+        
+        resultList.append(String(probability) + "%")
     }
     
     return resultList
