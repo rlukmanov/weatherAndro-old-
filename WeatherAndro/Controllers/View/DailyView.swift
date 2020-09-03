@@ -257,7 +257,7 @@ class DailyView: UIView {
     
     // MARK: - setup constraints
     
-    func setupConstraints() {
+    private func setupConstraints() {
         setupConstraintsDailyInfoTitleLabel()
         setupConstraintsDailyInfoScrollView()
         setupConstraintsDailyContentView()

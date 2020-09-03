@@ -149,6 +149,8 @@ class PageScrollViewController: UIViewController {
     
     private let dailyView = DailyView()
     
+    private let detailsView = DetailsView()
+    
     // MARK: - viewDidLoad func
 
     override func viewDidLoad() {
@@ -160,6 +162,7 @@ class PageScrollViewController: UIViewController {
         mainView.configure()
         hourlyView.configure()
         dailyView.configure()
+        detailsView.configure()
         
         addSubviews()
         setupConstraints()
@@ -197,6 +200,7 @@ class PageScrollViewController: UIViewController {
         
         hourlyView.setupData(resultOneCall: resultOneCall)
         dailyView.setupData(resultOneCall: resultOneCall)
+        detailsView.setupData(resultOneCall: resultOneCall)
     }
     
     // MARK: - add subviews func
@@ -217,10 +221,9 @@ class PageScrollViewController: UIViewController {
         contentView.addSubview(typeWeatherLabel)
         
         contentView.addSubview(mainView)
-        
         contentView.addSubview(hourlyView)
-        
         contentView.addSubview(dailyView)
+        contentView.addSubview(detailsView)
     }
     
     // MARK: - setup constraints funcs
@@ -241,10 +244,9 @@ class PageScrollViewController: UIViewController {
         setupConstraintsTypeWeatherLabel()
         
         setupConstraintsMainView()
-        
         setupConstraintsHourlyView()
-        
         setupConstraintsDailyView()
+        setupConstraintsDetailsView()
     }
     
     private func setupConstraintsBackgroundImageView() {
@@ -332,8 +334,14 @@ class PageScrollViewController: UIViewController {
         dailyView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         dailyView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         dailyView.heightAnchor.constraint(equalToConstant: 338).isActive = true
-        
-        dailyView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -35).isActive = true
+    }
+    
+    private func setupConstraintsDetailsView() {
+        detailsView.topAnchor.constraint(equalTo: dailyView.bottomAnchor, constant: 35).isActive = true
+        detailsView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        detailsView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+        detailsView.heightAnchor.constraint(equalToConstant: 138).isActive = true
+        detailsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -35).isActive = true
     }
 }
 

@@ -28,6 +28,7 @@
 		E1AC9E882500655400F5C1D8 /* HourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E872500655300F5C1D8 /* HourlyView.swift */; };
 		E1AC9E8A25006CEC00F5C1D8 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E8925006CEC00F5C1D8 /* DailyView.swift */; };
 		E1AC9E8C2500712600F5C1D8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E8B2500712600F5C1D8 /* MainView.swift */; };
+		E1AC9E8E25007FAC00F5C1D8 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC9E8D25007FAC00F5C1D8 /* DetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		E1AC9E872500655300F5C1D8 /* HourlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyView.swift; sourceTree = "<group>"; };
 		E1AC9E8925006CEC00F5C1D8 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		E1AC9E8B2500712600F5C1D8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E1AC9E8D25007FAC00F5C1D8 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 				E1AC9E8B2500712600F5C1D8 /* MainView.swift */,
 				E1AC9E872500655300F5C1D8 /* HourlyView.swift */,
 				E1AC9E8925006CEC00F5C1D8 /* DailyView.swift */,
+				E1AC9E8D25007FAC00F5C1D8 /* DetailsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				E147E3ED24F82073004F2360 /* PageScrollViewController.swift in Sources */,
 				E147E40D24FC6D44004F2360 /* WeatherOfferModel.swift in Sources */,
 				E1AC9E8A25006CEC00F5C1D8 /* DailyView.swift in Sources */,
+				E1AC9E8E25007FAC00F5C1D8 /* DetailsView.swift in Sources */,
 				E1AC9E882500655400F5C1D8 /* HourlyView.swift in Sources */,
 				E147E40F24FD1D14004F2360 /* LoadData.swift in Sources */,
 				E1AC9E8224FF07A100F5C1D8 /* HourlyModel.swift in Sources */,

@@ -247,7 +247,7 @@ class HourlyView: UIView {
     
     // MARK: - setup constraints
     
-    func setupConstraints() {
+    private func setupConstraints() {
         setupConstraintsHourlyInfoTitleLabel()
         setupConstraintsHourlyArrowIconRightImageView()
         setupConstraintsHourlyArrowIconleftImageView()

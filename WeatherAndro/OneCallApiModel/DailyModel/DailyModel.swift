@@ -10,5 +10,7 @@ import Foundation
 
 class DailyModel: Codable {
     var dt: Float?
+    var sunrise: Float?
+    var sunset: Float?
     var temp: TemperatureDailyModel?
 }

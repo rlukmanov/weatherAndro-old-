@@ -213,3 +213,41 @@ func getDailyListTemperature(dailyList: [DailyModel]) -> [(String, String)] {
     return listResult
 }
 
+// MARK: - getSunsetSunriseTime func
+
+func getSunsetSunriseTime(dailyList: [DailyModel], timeZone: Int) -> (String, String){
+    var resultTime: (String, String) = ("", "") // first - sunset, second - sunrise
+    var calendar = Calendar.current
+    
+    if let timeZone = TimeZone(secondsFromGMT: timeZone) {
+        calendar.timeZone = timeZone
+    }
+    
+    // sunset
+    
+    var date = Date(timeIntervalSince1970: TimeInterval((dailyList.first?.sunset)!))
+    var hour = calendar.component(.hour, from: date)
+    var minutes = calendar.component(.minute, from: date)
+    var minutesString = String(minutes)
+    
+    if minutes < 10 {
+        minutesString.insert("0", at: minutesString.startIndex)
+    }
+    
+    resultTime.0 = String(hour) + ":" + minutesString
+    
+    // sunrise
+    
+    date = Date(timeIntervalSince1970: TimeInterval((dailyList.first?.sunrise)!))
+    hour = calendar.component(.hour, from: date)
+    minutes = calendar.component(.minute, from: date)
+    minutesString = String(minutes)
+    
+    if minutes < 10 {
+        minutesString.insert("0", at: minutesString.startIndex)
+    }
+    
+    resultTime.1 = String(hour) + ":" + minutesString
+    
+    return resultTime
+}

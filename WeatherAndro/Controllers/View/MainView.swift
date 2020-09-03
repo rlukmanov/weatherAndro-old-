@@ -80,7 +80,7 @@ class MainView: UIView {
     
     // MARK: - setup constraints
 
-    func setupConstraints() {
+    private func setupConstraints() {
         setupConstraintsLineInfoSeparator()
         setupConstraintsDropIconImageView()
         setupConstraintsPrecipitationTitleLabel()
