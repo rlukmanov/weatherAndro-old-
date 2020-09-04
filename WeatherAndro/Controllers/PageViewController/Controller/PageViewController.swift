@@ -177,19 +177,27 @@ extension PageViewController: ViewControllerDelegate {
         var prevPage: Int
         
         var arrayCities = UserDefaults.standard.array(forKey: "Cities") as! [String]
-        arrayCities.remove(at: currentPage - 1)
-        UserDefaults.standard.set(arrayCities, forKey: "Cities")
         
         if currentPage == 0 {
             prevPage = 1
             delegateView[1].hideLeftIcon()
+            
+            if arrayCities.count > 0 {
+                arrayCities.remove(at: 0)
+            }
         } else {
             if currentPage == viewControllerArray.count - 1 {
                 delegateView[currentPage - 1].hideRightIcon()
             }
             
             prevPage = currentPage - 1
+            
+            if arrayCities.count > 0 {
+                arrayCities.remove(at: currentPage - 1)
+            }
         }
+        
+        UserDefaults.standard.set(arrayCities, forKey: "Cities")
         
         setViewControllers([viewControllerArray[prevPage]], direction: .forward, animated: true, completion: nil)
         viewControllerArray.remove(at: currentPage)
