@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E12D47B42501CC6600B41739 /* CoordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D47B32501CC6600B41739 /* CoordModel.swift */; };
 		E12D47B62501DA9100B41739 /* UpScrollProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D47B52501DA9100B41739 /* UpScrollProtocol.swift */; };
+		E12D47B825020BB800B41739 /* HideShowArrowProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D47B725020BB800B41739 /* HideShowArrowProtocol.swift */; };
 		E12F1DB5250196CA007AD7B2 /* WeatherDailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12F1DB4250196CA007AD7B2 /* WeatherDailyModel.swift */; };
 		E12F1DB82501C4CB007AD7B2 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12F1DB72501C4CB007AD7B2 /* PageViewController.swift */; };
 		E12F1DBD2501C613007AD7B2 /* TypePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12F1DBC2501C613007AD7B2 /* TypePage.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		E12D47B32501CC6600B41739 /* CoordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordModel.swift; sourceTree = "<group>"; };
 		E12D47B52501DA9100B41739 /* UpScrollProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpScrollProtocol.swift; sourceTree = "<group>"; };
+		E12D47B725020BB800B41739 /* HideShowArrowProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideShowArrowProtocol.swift; sourceTree = "<group>"; };
 		E12F1DB4250196CA007AD7B2 /* WeatherDailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDailyModel.swift; sourceTree = "<group>"; };
 		E12F1DB72501C4CB007AD7B2 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		E12F1DBC2501C613007AD7B2 /* TypePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypePage.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			children = (
 				E12F1DBC2501C613007AD7B2 /* TypePage.swift */,
 				E12D47B52501DA9100B41739 /* UpScrollProtocol.swift */,
+				E12D47B725020BB800B41739 /* HideShowArrowProtocol.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				E1AC9E7C24FEB85600F5C1D8 /* DailyModel.swift in Sources */,
 				E147E40724FC6CF3004F2360 /* ListOfferModel.swift in Sources */,
 				E1AC9E9025017E1900F5C1D8 /* WeatherHourlyModel.swift in Sources */,
+				E12D47B825020BB800B41739 /* HideShowArrowProtocol.swift in Sources */,
 				E147E40224FC6C66004F2360 /* NetworkManager.swift in Sources */,
 				E147E41224FD51B9004F2360 /* Model.swift in Sources */,
 				E147E3ED24F82073004F2360 /* PageScrollViewController.swift in Sources */,

@@ -15,8 +15,6 @@ class PageScrollViewController: UIViewController {
     
     private var currentCity: String?
     
-    private var index: Int
-    
     // MARK: - properties
 
     private let pageScrollView: UIScrollView = {
@@ -175,10 +173,27 @@ class PageScrollViewController: UIViewController {
         return apiNameLabel
     }()
     
+    private let leftIconImageView: UIImageView = {
+        let leftIconImageView = UIImageView()
+        
+        leftIconImageView.image = UIImage(named: "ArrowIconLeft")
+        leftIconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return leftIconImageView
+    }()
+    
+    private let rightIconImageView: UIImageView = {
+        let rightIconImageView = UIImageView()
+        
+        rightIconImageView.image = UIImage(named: "ArrowIconRight")
+        rightIconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return rightIconImageView
+    }()
+    
     // MARK: - Initializer
     
-    init(type: typePage, cityInput: String, index: Int) {
-        self.index = index
+    init(type: typePage, cityInput: String) {
         currentCity = cityInput
         
         super.init(nibName: nil, bundle: nil)
@@ -207,26 +222,9 @@ class PageScrollViewController: UIViewController {
         loadData(city: currentCity ?? "Moscow")
     }
     
-    // MARK: - preferredStatusBarStyle
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     // MARK: - setup data funcs
     
-    func setData(resultFiveDay: OfferModel) {
-        namePlaceLabel.text = resultFiveDay.city?.name
-        
-        mainView.setupData(resultFiveDay: resultFiveDay)
-    }
-    
-    func setData(resultOneCall: OneCallApiModel) {
-        temperatureValueLabel.text = convertDegree(temperature: (resultOneCall.current?.temp)!, typeResult: .celsius) + "\u{00B0}"
-        typeWeatherLabel.text = resultOneCall.current?.weather?.first?.main
-        dateTimeLabel.text = currentData(timeZone: (resultOneCall.timezone_offset)!)
-        weatherIconImageView.image = UIImage(named: (resultOneCall.current?.weather?.first?.icon)!)
-        
+    func setFeelsLikeLabel(resultOneCall: OneCallApiModel) {
         feelsLikeLabel.text = convertDegree(temperature: (resultOneCall.daily?.first?.temp?.max)!, typeResult: .celsius)
         feelsLikeLabel.text! += "\u{00B0}"
         feelsLikeLabel.text! += "/"
@@ -235,7 +233,19 @@ class PageScrollViewController: UIViewController {
         feelsLikeLabel.text! += " Feels like "
         feelsLikeLabel.text! += convertDegree(temperature: (resultOneCall.current?.feels_like)!, typeResult: .celsius)
         feelsLikeLabel.text! += "\u{00B0}"
-        
+    }
+    
+    func setData(resultFiveDay: OfferModel) {
+        namePlaceLabel.text = resultFiveDay.city?.name
+        mainView.setupData(resultFiveDay: resultFiveDay)
+    }
+    
+    func setData(resultOneCall: OneCallApiModel) {
+        temperatureValueLabel.text = convertDegree(temperature: (resultOneCall.current?.temp)!, typeResult: .celsius) + "\u{00B0}"
+        typeWeatherLabel.text = resultOneCall.current?.weather?.first?.main
+        dateTimeLabel.text = currentData(timeZone: (resultOneCall.timezone_offset)!)
+        weatherIconImageView.image = UIImage(named: (resultOneCall.current?.weather?.first?.icon)!)
+        setFeelsLikeLabel(resultOneCall: resultOneCall)
         hourlyView.setupData(resultOneCall: resultOneCall)
         dailyView.setupData(resultOneCall: resultOneCall)
         detailsView.setupData(resultOneCall: resultOneCall)
@@ -255,6 +265,8 @@ class PageScrollViewController: UIViewController {
         
         contentView.addSubview(temperatureValueLabel)
         contentView.addSubview(weatherIconImageView)
+        contentView.addSubview(leftIconImageView)
+        contentView.addSubview(rightIconImageView)
         contentView.addSubview(feelsLikeLabel)
         contentView.addSubview(typeWeatherLabel)
         
@@ -281,6 +293,8 @@ class PageScrollViewController: UIViewController {
         
         setupConstraintsTemperatureValueLabel()
         setupConstraintsWeatherIconImageView()
+        setupConstraintsLeftIconImageView()
+        setupConstraintsRightIconImageView()
         setupConstraintsFeelsLikeLabel()
         setupConstraintsTypeWeatherLabel()
         
@@ -347,6 +361,20 @@ class PageScrollViewController: UIViewController {
         weatherIconImageView.heightAnchor.constraint(equalToConstant: 64).isActive = true
         weatherIconImageView.widthAnchor.constraint(equalToConstant: 64).isActive = true
         weatherIconImageView.bottomAnchor.constraint(equalTo: mainView.topAnchor, constant: -145).isActive = true
+    }
+    
+    private func setupConstraintsLeftIconImageView() {
+        leftIconImageView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+        leftIconImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        leftIconImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 19).isActive = true
+        leftIconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 58).isActive = true
+    }
+    
+    private func setupConstraintsRightIconImageView() {
+        rightIconImageView.widthAnchor.constraint(equalTo: leftIconImageView.widthAnchor).isActive = true
+        rightIconImageView.heightAnchor.constraint(equalTo: leftIconImageView.heightAnchor).isActive = true
+        rightIconImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -19).isActive = true
+        rightIconImageView.topAnchor.constraint(equalTo: leftIconImageView.topAnchor).isActive = true
     }
     
     private func setupConstraintsFeelsLikeLabel() {
@@ -424,5 +452,25 @@ extension PageScrollViewController: UpScrollProtocol {
         pageScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         hourlyView.setContentOffset()
         dailyView.setContentOffset()
+    }
+}
+
+// MARK: - HideArrowProtocol
+
+extension PageScrollViewController: HideShowArrowProtocol {
+    func hideRightIcon() {
+        rightIconImageView.isHidden = true
+    }
+    
+    func showRightIcon() {
+        rightIconImageView.isHidden = false
+    }
+    
+    func hideLeftIcon() {
+        leftIconImageView.isHidden = true
+    }
+    
+    func showLeftIcon() {
+        leftIconImageView.isHidden = false
     }
 }

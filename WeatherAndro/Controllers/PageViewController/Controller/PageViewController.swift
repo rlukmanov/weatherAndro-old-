@@ -9,7 +9,7 @@ import UIKit
 
 class PageViewController: UIPageViewController {
     
-    var delegateScroll = [UpScrollProtocol]()
+    var delegateView = [UpScrollProtocol & HideShowArrowProtocol]()
     
     // MARK: - Properties
         
@@ -21,15 +21,7 @@ class PageViewController: UIPageViewController {
         super.viewDidLoad()
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        let gradientLayer = CAGradientLayer()
-        let topColor = UIColor(red: 77.0  / 255.0, green: 59.0 / 255.0, blue: 219.0 / 255.0, alpha: 1).cgColor
-        let bottomColor = UIColor(red: 121.0  / 255.0, green: 179.0 / 255.0, blue: 216.0 / 255.0, alpha: 1).cgColor
-        
-        gradientLayer.frame = self.view.bounds
-        gradientLayer.colors = [topColor, bottomColor]
-        gradientLayer.locations = [0.0, 0.8]
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        setupBackgroundColor()
     }
     
     // MARK: - Initializer
@@ -46,6 +38,26 @@ class PageViewController: UIPageViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - setupBackgroundColor
+    
+    private func setupBackgroundColor() {
+        let gradientLayer = CAGradientLayer()
+        let topColor = UIColor(red: 77.0  / 255.0, green: 59.0 / 255.0, blue: 219.0 / 255.0, alpha: 1).cgColor
+        let bottomColor = UIColor(red: 121.0  / 255.0, green: 179.0 / 255.0, blue: 216.0 / 255.0, alpha: 1).cgColor
+               
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [topColor, bottomColor]
+        gradientLayer.locations = [0.0, 0.8]
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    // MARK: - preferredStatusBarStyle
+       
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - setViewControllerArray
     
     private func setViewControllerArray() {
@@ -54,24 +66,28 @@ class PageViewController: UIPageViewController {
         //viewControllerArray.append(PageScrollViewController(type: .firstPage, cityInput: ""))
         
         // --------------------
-        let temp1 = PageScrollViewController(type: .firstPage, cityInput: "Moscow", index: 0)
-        let temp2 = PageScrollViewController(type: .prevCity, cityInput: "London", index: 1)
-        let temp3 = PageScrollViewController(type: .prevCity, cityInput: "New York", index: 2)
+        let temp1 = PageScrollViewController(type: .firstPage, cityInput: "Moscow")
+        let temp2 = PageScrollViewController(type: .prevCity, cityInput: "London")
+        let temp3 = PageScrollViewController(type: .prevCity, cityInput: "New York")
         
         viewControllerArray.append(temp1)
         viewControllerArray.append(temp2)
         viewControllerArray.append(temp3)
         
-        delegateScroll.append(temp1)
-        delegateScroll.append(temp2)
-        delegateScroll.append(temp3)
+        delegateView.append(temp1)
+        delegateView.append(temp2)
+        delegateView.append(temp3)
+        
+        delegateView.first?.hideLeftIcon()
+        delegateView.last?.hideRightIcon()
+        
         // --------------------
         
         if let arrayCities = arrayCities {
             var index = 0
             
             for city in arrayCities {
-                viewControllerArray.append(PageScrollViewController(type: .prevCity, cityInput: city as! String, index: index))
+                viewControllerArray.append(PageScrollViewController(type: .prevCity, cityInput: city as! String))
                 index += 1
             }
         }
