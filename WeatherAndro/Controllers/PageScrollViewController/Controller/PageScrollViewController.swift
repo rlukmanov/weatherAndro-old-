@@ -15,6 +15,8 @@ class PageScrollViewController: UIViewController {
     
     private var currentCity: String?
     
+    private var index: Int
+    
     // MARK: - properties
 
     private let pageScrollView: UIScrollView = {
@@ -35,15 +37,6 @@ class PageScrollViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
 
         return contentView
-    }()
-    
-    private let backgroundImageView: UIImageView = {
-        let backgroundImageView = UIImageView()
-        
-        backgroundImageView.image = UIImage(named: "Background")
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return backgroundImageView
     }()
     
     // MARK: - places button properties
@@ -184,10 +177,11 @@ class PageScrollViewController: UIViewController {
     
     // MARK: - Initializer
     
-    init(type: typePage, cityInput: String) {
-        super.init(nibName: nil, bundle: nil)
-        
+    init(type: typePage, cityInput: String, index: Int) {
+        self.index = index
         currentCity = cityInput
+        
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -250,7 +244,6 @@ class PageScrollViewController: UIViewController {
     // MARK: - add subviews func
 
     private func addSubviews() {
-        view.addSubview(backgroundImageView)
         view.addSubview(titlePlacesLabel)
         view.addSubview(searchIconImageView)
         view.addSubview(settingsIconImageView)
@@ -277,7 +270,6 @@ class PageScrollViewController: UIViewController {
     // MARK: - setup constraints funcs
 
     private func setupConstraints() {
-        setupConstraintsBackgroundImageView()
         setupConstraintsTitlePlacesLabel()
         setupConstraintsSearchIconImageView()
         setupConstraintsSettingsIconImageView()
@@ -299,13 +291,6 @@ class PageScrollViewController: UIViewController {
         
         setupConstraintsApiIconImageView()
         setupConstraintsApiNameLabel()
-    }
-    
-    private func setupConstraintsBackgroundImageView() {
-        backgroundImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        backgroundImageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     private func setupConstraintsNamePlaceLabel() {

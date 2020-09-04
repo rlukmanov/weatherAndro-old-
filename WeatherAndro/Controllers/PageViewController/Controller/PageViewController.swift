@@ -12,26 +12,24 @@ class PageViewController: UIPageViewController {
     var delegateScroll = [UpScrollProtocol]()
     
     // MARK: - Properties
-    
-    var pageControl: UIPageControl?
         
     var viewControllerArray = [PageScrollViewController]()
+    
+    // MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
         
-        for subView in view.subviews {
-            if subView is UIPageControl {
-                pageControl = subView as? UIPageControl
-                //subView.isHidden = true
-            }
-        }
+        let gradientLayer = CAGradientLayer()
+        let topColor = UIColor(red: 77.0  / 255.0, green: 59.0 / 255.0, blue: 219.0 / 255.0, alpha: 1).cgColor
+        let bottomColor = UIColor(red: 121.0  / 255.0, green: 179.0 / 255.0, blue: 216.0 / 255.0, alpha: 1).cgColor
+        
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [topColor, bottomColor]
+        gradientLayer.locations = [0.0, 0.8]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     // MARK: - Initializer
@@ -56,19 +54,25 @@ class PageViewController: UIPageViewController {
         //viewControllerArray.append(PageScrollViewController(type: .firstPage, cityInput: ""))
         
         // --------------------
-        let temp1 = PageScrollViewController(type: .firstPage, cityInput: "Moscow")
-        let temp2 = PageScrollViewController(type: .prevCity, cityInput: "London")
+        let temp1 = PageScrollViewController(type: .firstPage, cityInput: "Moscow", index: 0)
+        let temp2 = PageScrollViewController(type: .prevCity, cityInput: "London", index: 1)
+        let temp3 = PageScrollViewController(type: .prevCity, cityInput: "New York", index: 2)
         
         viewControllerArray.append(temp1)
         viewControllerArray.append(temp2)
+        viewControllerArray.append(temp3)
         
         delegateScroll.append(temp1)
         delegateScroll.append(temp2)
+        delegateScroll.append(temp3)
         // --------------------
         
         if let arrayCities = arrayCities {
+            var index = 0
+            
             for city in arrayCities {
-                viewControllerArray.append(PageScrollViewController(type: .prevCity, cityInput: city as! String))
+                viewControllerArray.append(PageScrollViewController(type: .prevCity, cityInput: city as! String, index: index))
+                index += 1
             }
         }
     }
@@ -104,14 +108,6 @@ extension PageViewController: UIPageViewControllerDataSource, UIPageViewControll
         }
             
         return nil
-    }
-    
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return viewControllerArray.count
-    }
-    
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return 0
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
