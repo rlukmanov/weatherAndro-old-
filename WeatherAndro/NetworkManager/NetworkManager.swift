@@ -32,7 +32,7 @@ class NetworkManager {
             if error == nil, let parsData = data {
                 
                 guard let weather = try? self.decoder.decode(OfferModel.self, from: parsData) else {
-                    print("Unable to decode")
+                    print("Unable to decode, error: \(String(describing: error))")
                     completion(nil)
                     return
                 }

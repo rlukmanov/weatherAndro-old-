@@ -15,7 +15,7 @@ class DailyView: UIView {
     private let dailyInfoTitleLabel: UILabel = {
         let dailyInfoTitleLabel = UILabel()
         
-        dailyInfoTitleLabel.text = "Daily"
+        dailyInfoTitleLabel.text = "" // Daily
         dailyInfoTitleLabel.font = .systemFont(ofSize: 12, weight: .medium)
         dailyInfoTitleLabel.textColor = UIColor(red: 211.0 / 255.0, green: 230.0 / 255.0, blue: 239.0 / 255.0, alpha: 1)
         dailyInfoTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +67,7 @@ class DailyView: UIView {
         let dailyButtonLabel = UILabel()
         
         dailyButtonLabel.textColor = UIColor(red: 230.0 / 255.0, green: 246.0 / 255.0, blue: 251.0 / 255.0, alpha: 1)
-        dailyButtonLabel.text = "15 days"
+        dailyButtonLabel.text = "" // 15 days
         dailyButtonLabel.font = .systemFont(ofSize: 13, weight: .medium)
         dailyButtonLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -153,6 +153,8 @@ class DailyView: UIView {
     // MARK: - set funcs
     
     func setupData(resultOneCall: OneCallApiModel) {
+        dailyButtonLabel.text = "15 days"
+        dailyInfoTitleLabel.text = "Daily"
         setDailyTimeValue(dailyList: (resultOneCall.daily)!,  timezoneOffset: (resultOneCall.timezone_offset)!)
         setDailyPillar(dailyList: (resultOneCall.daily)!, maxSize: 56)
         setDailyIcons(dailyList: (resultOneCall.daily)!)

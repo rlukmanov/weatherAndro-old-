@@ -35,7 +35,7 @@ class HourlyView: UIView {
     private let hourlyInfoTitleLabel: UILabel = {
         let hourlyInfoTitleLabel = UILabel()
         
-        hourlyInfoTitleLabel.text = "Hourly"
+        hourlyInfoTitleLabel.text = "" // Hourly
         hourlyInfoTitleLabel.font = .systemFont(ofSize: 12, weight: .medium)
         hourlyInfoTitleLabel.textColor = UIColor(red: 211.0 / 255.0, green: 230.0 / 255.0, blue: 239.0 / 255.0, alpha: 1)
         hourlyInfoTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +86,7 @@ class HourlyView: UIView {
         let hourlyButtonLabel = UILabel()
         
         hourlyButtonLabel.textColor = UIColor(red: 230.0 / 255.0, green: 246.0 / 255.0, blue: 251.0 / 255.0, alpha: 1)
-        hourlyButtonLabel.text = "48 hours"
+        hourlyButtonLabel.text = "" // 48 hours
         hourlyButtonLabel.font = .systemFont(ofSize: 13, weight: .medium)
         hourlyButtonLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -156,6 +156,8 @@ class HourlyView: UIView {
     // MARK: - set funcs
     
     func setupData(resultOneCall: OneCallApiModel) {
+        hourlyInfoTitleLabel.text = "Hourly"
+        hourlyButtonLabel.text = "48 hours"
         setHourlyTimeValue(timeFirst: (resultOneCall.hourly?.first?.dt)!, timezoneOffset: (resultOneCall.timezone_offset)!)
         setHourlyIcons(hourlyList: (resultOneCall.hourly)!)
         setHourlyPercipitation(hourlyList: (resultOneCall.hourly)!)

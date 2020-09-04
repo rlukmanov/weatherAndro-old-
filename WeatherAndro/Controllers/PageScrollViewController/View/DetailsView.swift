@@ -15,7 +15,7 @@ class DetailsView: UIView {
     private let detailsTitleLabel: UILabel = {
         let detailsTitleLabel = UILabel()
         
-        detailsTitleLabel.text = "Details"
+        detailsTitleLabel.text = "" // Details
         detailsTitleLabel.font = .systemFont(ofSize: 12, weight: .medium)
         detailsTitleLabel.textColor = UIColor(red: 211.0 / 255.0, green: 230.0 / 255.0, blue: 239.0 / 255.0, alpha: 1)
         detailsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +35,7 @@ class DetailsView: UIView {
     private let detailsSunsetTitleLabel: UILabel = {
         let detailsSunsetTitleLabel = UILabel()
         
-        detailsSunsetTitleLabel.text = "Sunset"
+        detailsSunsetTitleLabel.text = "" // Sunset
         detailsSunsetTitleLabel.font = .systemFont(ofSize: 15, weight: .regular)
         detailsSunsetTitleLabel.textColor = .white
         detailsSunsetTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +46,7 @@ class DetailsView: UIView {
     private let detailsSunriseTitleLabel: UILabel = {
         let detailsSunriseTitleLabel = UILabel()
         
-        detailsSunriseTitleLabel.text = "Sunrise"
+        detailsSunriseTitleLabel.text = "" // Sunrise
         detailsSunriseTitleLabel.font = .systemFont(ofSize: 15, weight: .regular)
         detailsSunriseTitleLabel.textColor = .white
         detailsSunriseTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class DetailsView: UIView {
     private let detailsSunsetTimeLabel: UILabel = {
         let detailsSunsetTimeLabel = UILabel()
         
-        detailsSunsetTimeLabel.text = "19:17"
+        detailsSunsetTimeLabel.text = ""
         detailsSunsetTimeLabel.font = .systemFont(ofSize: 15, weight: .regular)
         detailsSunsetTimeLabel.textColor = .white
         detailsSunsetTimeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +68,7 @@ class DetailsView: UIView {
     private let detailsSunriseTimeLabel: UILabel = {
         let detailsSunriseTimeLabel = UILabel()
         
-        detailsSunriseTimeLabel.text = "5:38"
+        detailsSunriseTimeLabel.text = ""
         detailsSunriseTimeLabel.font = .systemFont(ofSize: 15, weight: .regular)
         detailsSunriseTimeLabel.textColor = .white
         detailsSunriseTimeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -121,6 +121,10 @@ class DetailsView: UIView {
     // MARK: - set funcs
     
     func setupData(resultOneCall: OneCallApiModel) {
+        detailsTitleLabel.text = "Details"
+        detailsSunsetTitleLabel.text = "Sunset"
+        detailsSunriseTitleLabel.text = "Sunrise"
+        
         var sunsetSunrise: (String, String)
         
         sunsetSunrise = getSunsetSunriseTime(dailyList: (resultOneCall.daily)!, timeZone: (resultOneCall.timezone_offset)!)

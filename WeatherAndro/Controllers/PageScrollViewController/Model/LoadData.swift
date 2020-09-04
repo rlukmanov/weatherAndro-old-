@@ -29,44 +29,66 @@ extension PageScrollViewController {
     func loadData(city: String) {
         var coord: CLLocationCoordinate2D?
         let semaphore = DispatchSemaphore(value: 0)
+        var success = true
         
         _ = NetworkManager.shared.getWeather(city: city, completion: { (result) in
-                
+            
             guard let result = result else {
+                success = false
+                
                 DispatchQueue.main.async {
                     print("Didn't find this city!")
 
                     self.showAlert()
                 }
-                    
+                
+                semaphore.signal()
+                
                 return
             }
-                    
-            coord = CLLocationCoordinate2DMake(CLLocationDegrees((result.city?.coord?.lat)!), CLLocationDegrees((result.city?.coord?.lon)!))
+            
             semaphore.signal()
+            
+            coord = CLLocationCoordinate2DMake(CLLocationDegrees((result.city?.coord?.lat)!), CLLocationDegrees((result.city?.coord?.lon)!))
                     
             DispatchQueue.main.async {
+                if self.newData {
+                    let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+                    if !launchedBefore  {
+                        UserDefaults.standard.set([String](), forKey: "Cities")
+                        UserDefaults.standard.set(true, forKey: "launchedBefore")
+                    }
+                    
+                    var arrayCities = UserDefaults.standard.array(forKey: "Cities") as! [String]
+                    arrayCities.append(city)
+                    UserDefaults.standard.set(arrayCities, forKey: "Cities")
+                    
+                    self.newData = false
+                }
+                
                 self.setData(resultFiveDay: result)
             }
         })
 
         semaphore.wait()
         
-        _ = NetworkManager.shared.getWeatherOneCallApi(coord: coord, completion: { (result) in
+        if success {
+            _ = NetworkManager.shared.getWeatherOneCallApi(coord: coord, completion: { (result) in
     
-             guard let result = result else {
-                DispatchQueue.main.async {
-                    print("Didn't find this city!")
+                guard let result = result else {
+                    DispatchQueue.main.async {
+                        print("Didn't find this city!")
 
-                    self.showAlert()
-                }
+                        self.showAlert()
+                    }
                         
-                return
-            }
+                    return
+                }
                     
-            DispatchQueue.main.async {
-                self.setData(resultOneCall: result)
-            }
-        })
+                DispatchQueue.main.async {
+                    self.setData(resultOneCall: result)
+                }
+            })
+        }
     }
 }

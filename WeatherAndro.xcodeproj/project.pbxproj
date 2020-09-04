@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E10F011225024F250048D284 /* ActionCityProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F011125024F250048D284 /* ActionCityProtocol.swift */; };
+		E10F0114250255100048D284 /* ViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F0113250255100048D284 /* ViewControllerDelegate.swift */; };
 		E12D47B42501CC6600B41739 /* CoordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D47B32501CC6600B41739 /* CoordModel.swift */; };
 		E12D47B62501DA9100B41739 /* UpScrollProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D47B52501DA9100B41739 /* UpScrollProtocol.swift */; };
 		E12D47B825020BB800B41739 /* HideShowArrowProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D47B725020BB800B41739 /* HideShowArrowProtocol.swift */; };
@@ -39,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E10F011125024F250048D284 /* ActionCityProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCityProtocol.swift; sourceTree = "<group>"; };
+		E10F0113250255100048D284 /* ViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerDelegate.swift; sourceTree = "<group>"; };
 		E12D47B32501CC6600B41739 /* CoordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordModel.swift; sourceTree = "<group>"; };
 		E12D47B52501DA9100B41739 /* UpScrollProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpScrollProtocol.swift; sourceTree = "<group>"; };
 		E12D47B725020BB800B41739 /* HideShowArrowProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideShowArrowProtocol.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 				E12F1DBC2501C613007AD7B2 /* TypePage.swift */,
 				E12D47B52501DA9100B41739 /* UpScrollProtocol.swift */,
 				E12D47B725020BB800B41739 /* HideShowArrowProtocol.swift */,
+				E10F011125024F250048D284 /* ActionCityProtocol.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 				E147E41124FD51B9004F2360 /* Model.swift */,
 				E147E40E24FD1D14004F2360 /* LoadData.swift */,
 				E147E3FE24FC6B63004F2360 /* Location.swift */,
+				E10F0113250255100048D284 /* ViewControllerDelegate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -326,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E15B6B4024FEAF42004027EC /* CurrentModel.swift in Sources */,
+				E10F011225024F250048D284 /* ActionCityProtocol.swift in Sources */,
 				E12D47B42501CC6600B41739 /* CoordModel.swift in Sources */,
 				E1AC9E7C24FEB85600F5C1D8 /* DailyModel.swift in Sources */,
 				E147E40724FC6CF3004F2360 /* ListOfferModel.swift in Sources */,
@@ -349,6 +356,7 @@
 				E147E40B24FC6D22004F2360 /* CityModel.swift in Sources */,
 				E147E3FF24FC6B63004F2360 /* Location.swift in Sources */,
 				E12D47B62501DA9100B41739 /* UpScrollProtocol.swift in Sources */,
+				E10F0114250255100048D284 /* ViewControllerDelegate.swift in Sources */,
 				E15B6B3E24FEAEBA004027EC /* OneCallApiModel.swift in Sources */,
 				E147E40924FC6D0C004F2360 /* MainOfferModel.swift in Sources */,
 				E15B6B4224FEB4C2004027EC /* WeatherCurrentModel.swift in Sources */,

@@ -11,9 +11,15 @@ import CoreLocation
 
 class PageScrollViewController: UIViewController {
     
+    var newData = false
+    
     let locationManager: CLLocationManager = CLLocationManager()
     
     private var currentCity: String?
+    
+    private var currentPage: typePage
+    
+    weak var delegate: ViewControllerDelegate?
     
     // MARK: - properties
 
@@ -37,19 +43,6 @@ class PageScrollViewController: UIViewController {
         return contentView
     }()
     
-    // MARK: - places button properties
-    
-    private let titlePlacesLabel: UILabel = {
-        let titlePlacesLabel = UILabel()
-        
-        titlePlacesLabel.text = "Locations"
-        titlePlacesLabel.font = .systemFont(ofSize: 15, weight: .medium)
-        titlePlacesLabel.textColor = .white
-        titlePlacesLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        return titlePlacesLabel
-    }()
-    
     // MARK: - search button properties
     
     private let searchIconImageView: UIImageView = {
@@ -61,22 +54,40 @@ class PageScrollViewController: UIViewController {
         return searchIconImageView
     }()
     
+    private let searchButton: UIButton = {
+        let searchButton = UIButton()
+        
+        searchButton.addTarget(self, action: #selector(addNewCity), for: .touchUpInside)
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        return searchButton
+    }()
+    
     // MARK: - settings button properties
     
-    private let settingsIconImageView: UIImageView = {
+    private let deleteIconImageView: UIImageView = {
         let settingsIconImageView = UIImageView()
         
-        settingsIconImageView.image = UIImage(named: "settingsMenu")
+        settingsIconImageView.image = UIImage(named: "DeleteIcon")
         settingsIconImageView.translatesAutoresizingMaskIntoConstraints = false
         
         return settingsIconImageView
+    }()
+    
+    private let deleteButton: UIButton = {
+        let deleteButton = UIButton()
+        
+        deleteButton.addTarget(self, action: #selector(deleteCurrentCity), for: .touchUpInside)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        return deleteButton
     }()
     
     // MARK: - name place property
     private let namePlaceLabel: UILabel = {
         let namePlaceLabel = UILabel()
         
-        namePlaceLabel.text = "Москва"
+        namePlaceLabel.text = ""
         namePlaceLabel.font = .systemFont(ofSize: 16, weight: .medium)
         namePlaceLabel.textColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 251.0 / 255.0, alpha: 1)
         namePlaceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +100,7 @@ class PageScrollViewController: UIViewController {
     private let dateTimeLabel: UILabel = {
         let dateTimeLabel = UILabel()
         
-        dateTimeLabel.text = "вс, 30 августа 0:16"
+        dateTimeLabel.text = ""
         dateTimeLabel.font = .systemFont(ofSize: 16, weight: .medium)
         dateTimeLabel.textColor = UIColor(red: 178.0 / 255.0, green: 181.0 / 255.0, blue: 253.0 / 255.0, alpha: 1)
         dateTimeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +113,7 @@ class PageScrollViewController: UIViewController {
     private let temperatureValueLabel: UILabel = {
         let temperatureValueLabel = UILabel()
         
-        temperatureValueLabel.text = "14" + "\u{00B0}"
+        temperatureValueLabel.text = ""
         temperatureValueLabel.font = .systemFont(ofSize: 80, weight: .thin)
         temperatureValueLabel.textColor = UIColor(red: 250.0 / 255.0, green: 250.0 / 255.0, blue: 251.0 / 255.0, alpha: 1)
         temperatureValueLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +124,6 @@ class PageScrollViewController: UIViewController {
     private let weatherIconImageView: UIImageView = {
         let weatherIconImageView = UIImageView()
         
-        //weatherIconImageView.a
         weatherIconImageView.translatesAutoresizingMaskIntoConstraints = false
         
         return weatherIconImageView
@@ -124,7 +134,7 @@ class PageScrollViewController: UIViewController {
     private let feelsLikeLabel: UILabel = {
         let feelsLikeLabel = UILabel()
         
-        feelsLikeLabel.text = "19" + "\u{00B0}" + "/" + "13" + "\u{00B0}" + " Ощущается как 13" + "\u{00B0}"
+        feelsLikeLabel.text = ""
         feelsLikeLabel.font = .systemFont(ofSize: 16, weight: .medium)
         feelsLikeLabel.textColor = UIColor(red: 210.0 / 255.0, green: 223.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
         feelsLikeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -137,7 +147,7 @@ class PageScrollViewController: UIViewController {
     private let typeWeatherLabel: UILabel = {
         let typeWeatherLabel = UILabel()
         
-        typeWeatherLabel.text = "Ясно"
+        typeWeatherLabel.text = ""
         typeWeatherLabel.font = .systemFont(ofSize: 16, weight: .medium)
         typeWeatherLabel.textColor = UIColor(red: 239.0 / 255.0, green: 250.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
         typeWeatherLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -191,10 +201,28 @@ class PageScrollViewController: UIViewController {
         return rightIconImageView
     }()
     
+    // MARK: - Search page
+    
+    let searchTextField = { () -> UITextField in
+        let tempSearch = UITextField()
+        
+        tempSearch.borderStyle = .roundedRect
+        tempSearch.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.1)
+        tempSearch.attributedPlaceholder = NSAttributedString(string: "Enter the name of the city",
+                                                              attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 0.6)])
+        tempSearch.textColor = .white
+        tempSearch.keyboardAppearance = .light
+        
+        tempSearch.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tempSearch
+    }()
+    
     // MARK: - Initializer
     
     init(type: typePage, cityInput: String) {
         currentCity = cityInput
+        currentPage = type
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -219,12 +247,33 @@ class PageScrollViewController: UIViewController {
         addSubviews()
         setupConstraints()
         
-        loadData(city: currentCity ?? "Moscow")
+        switch currentPage {
+        case .otherPage:
+            hideAll()
+            view.addSubview(searchTextField)
+            setupConstraintsForSearchTextField()
+            searchTextField.delegate = self
+        case .prevCity:
+            loadData(city: currentCity ?? "Moscow")
+        default:
+            break
+        }
+    }
+    
+    // MARK: - search
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if (touches.first) != nil {
+            view.endEditing(true)
+        }
+        
+        super.touchesBegan(touches, with: event)
     }
     
     // MARK: - setup data funcs
     
     func setFeelsLikeLabel(resultOneCall: OneCallApiModel) {
+        showViews()
         feelsLikeLabel.text = convertDegree(temperature: (resultOneCall.daily?.first?.temp?.max)!, typeResult: .celsius)
         feelsLikeLabel.text! += "\u{00B0}"
         feelsLikeLabel.text! += "/"
@@ -236,11 +285,13 @@ class PageScrollViewController: UIViewController {
     }
     
     func setData(resultFiveDay: OfferModel) {
+        showViews()
         namePlaceLabel.text = resultFiveDay.city?.name
         mainView.setupData(resultFiveDay: resultFiveDay)
     }
     
     func setData(resultOneCall: OneCallApiModel) {
+        showViews()
         temperatureValueLabel.text = convertDegree(temperature: (resultOneCall.current?.temp)!, typeResult: .celsius) + "\u{00B0}"
         typeWeatherLabel.text = resultOneCall.current?.weather?.first?.main
         dateTimeLabel.text = currentData(timeZone: (resultOneCall.timezone_offset)!)
@@ -251,12 +302,46 @@ class PageScrollViewController: UIViewController {
         detailsView.setupData(resultOneCall: resultOneCall)
     }
     
+    // MARK: - hide all
+    
+    private func hideAll() {
+        mainView.isHidden = true
+        hourlyView.isHidden = true
+        dailyView.isHidden = true
+        detailsView.isHidden = true
+        rightIconImageView.isHidden = true
+        leftIconImageView.isHidden = true
+        searchButton.isEnabled = false
+        searchIconImageView.isHidden = true
+    }
+    
+    // MARK: show all hidden
+    
+    private func showViews() {
+        switch currentPage {
+        case .otherPage:
+            self.searchTextField.isEnabled = false
+            self.searchTextField.isHidden = true
+            self.view.endEditing(true)
+            mainView.isHidden = false
+            hourlyView.isHidden = false
+            dailyView.isHidden = false
+            detailsView.isHidden = false
+            leftIconImageView.isHidden = false
+            searchButton.isEnabled = true
+            searchIconImageView.isHidden = false
+        default:
+            break
+        }
+    }
+    
     // MARK: - add subviews func
 
     private func addSubviews() {
-        view.addSubview(titlePlacesLabel)
         view.addSubview(searchIconImageView)
-        view.addSubview(settingsIconImageView)
+        view.addSubview(searchButton)
+        view.addSubview(deleteIconImageView)
+        view.addSubview(deleteButton)
         view.addSubview(namePlaceLabel)
         view.addSubview(dateTimeLabel)
         view.addSubview(pageScrollView)
@@ -282,9 +367,10 @@ class PageScrollViewController: UIViewController {
     // MARK: - setup constraints funcs
 
     private func setupConstraints() {
-        setupConstraintsTitlePlacesLabel()
         setupConstraintsSearchIconImageView()
+        setupConstraintsSearchButton()
         setupConstraintsSettingsIconImageView()
+        setupConstraintsDeleteButton()
         setupConstraintsNamePlaceLabel()
         setupConstraintsDateTimeLabel()
         setupConstraintsPageScrollView()
@@ -332,23 +418,32 @@ class PageScrollViewController: UIViewController {
         contentView.bottomAnchor.constraint(equalTo: pageScrollView.bottomAnchor).isActive = true
     }
     
-    private func setupConstraintsTitlePlacesLabel() {
-        titlePlacesLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -94).isActive = true
-        titlePlacesLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 39).isActive = true
-    }
-    
     private func setupConstraintsSearchIconImageView() {
         searchIconImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -57).isActive = true
-        searchIconImageView.topAnchor.constraint(equalTo: titlePlacesLabel.topAnchor).isActive = true
+        searchIconImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 39).isActive = true
         searchIconImageView.heightAnchor.constraint(equalToConstant: 17).isActive = true
         searchIconImageView.widthAnchor.constraint(equalToConstant: 17).isActive = true
     }
     
+    private func setupConstraintsSearchButton() {
+        searchButton.centerXAnchor.constraint(equalTo: searchIconImageView.centerXAnchor).isActive = true
+        searchButton.centerYAnchor.constraint(equalTo: searchIconImageView.centerYAnchor).isActive = true
+        searchButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        searchButton.widthAnchor.constraint(equalToConstant: 35).isActive = true
+    }
+    
     private func setupConstraintsSettingsIconImageView() {
-        settingsIconImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -28).isActive = true
-        settingsIconImageView.topAnchor.constraint(equalTo: searchIconImageView.topAnchor).isActive = true
-        settingsIconImageView.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        settingsIconImageView.widthAnchor.constraint(equalToConstant: 4).isActive = true
+        deleteIconImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -22).isActive = true
+        deleteIconImageView.topAnchor.constraint(equalTo: searchIconImageView.topAnchor).isActive = true
+        deleteIconImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        deleteIconImageView.widthAnchor.constraint(equalToConstant: 15).isActive = true
+    }
+    
+    private func setupConstraintsDeleteButton() {
+        deleteButton.centerXAnchor.constraint(equalTo: deleteIconImageView.centerXAnchor).isActive = true
+        deleteButton.centerYAnchor.constraint(equalTo: deleteIconImageView.centerYAnchor).isActive = true
+        deleteButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        deleteButton.widthAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
     private func setupConstraintsTemperatureValueLabel() {
@@ -427,6 +522,13 @@ class PageScrollViewController: UIViewController {
         apiNameLabel.leftAnchor.constraint(equalTo: apiIconImageView.rightAnchor, constant: 6).isActive = true
         apiNameLabel.centerYAnchor.constraint(equalTo: apiIconImageView.centerYAnchor).isActive = true
     }
+    
+    fileprivate func setupConstraintsForSearchTextField() {
+        searchTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 120).isActive = true
+        searchTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        searchTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
+        searchTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
 }
 
 // MARK: - UIScrollViewDelegate
@@ -472,5 +574,31 @@ extension PageScrollViewController: HideShowArrowProtocol {
     
     func showLeftIcon() {
         leftIconImageView.isHidden = false
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension PageScrollViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let city = searchTextField.text, city != "" else {
+            return false
+        }
+        
+        newData = true
+        loadData(city: city)
+        
+        return true
+    }
+}
+
+// MARK: - ActionCityProtocol
+
+extension PageScrollViewController: ActionCityProtocol {
+    @objc func addNewCity() {
+        delegate?.addNewCity()
+    }
+    
+    @objc func deleteCurrentCity() {
+        delegate?.deleteCurrentCity()
     }
 }

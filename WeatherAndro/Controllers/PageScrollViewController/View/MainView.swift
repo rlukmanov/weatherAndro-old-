@@ -24,7 +24,7 @@ class MainView: UIView {
     private let precipitationTitleLabel: UILabel = {
         let precipitationTitleLabel = UILabel()
         
-        precipitationTitleLabel.text = "Precipitation"
+        precipitationTitleLabel.text = "" // Precipitation
         precipitationTitleLabel.font = .systemFont(ofSize: 14, weight: .medium)
         precipitationTitleLabel.textColor = UIColor(red: 233.0 / 255.0, green: 250.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
         precipitationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +35,7 @@ class MainView: UIView {
     private let precipitationValueLabel: UILabel = {
         let precipitationValueLabel = UILabel()
         
-        precipitationValueLabel.text = "40%"
+        precipitationValueLabel.text = ""
         precipitationValueLabel.font = .systemFont(ofSize: 14, weight: .medium)
         precipitationValueLabel.textColor = UIColor(red: 233.0 / 255.0, green: 250.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
         precipitationValueLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +64,7 @@ class MainView: UIView {
     private let pressionTitleLabel: UILabel = {
         let pressionTitleLabel = UILabel()
         
-        pressionTitleLabel.text = "Atmo pressure"
+        pressionTitleLabel.text = "" // Atmo pressure
         pressionTitleLabel.font = .systemFont(ofSize: 14, weight: .medium)
         pressionTitleLabel.textColor = UIColor(red: 233.0 / 255.0, green: 250.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
         pressionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +75,7 @@ class MainView: UIView {
     private let pressionValueLabel: UILabel = {
         let pressionValueLabel = UILabel()
         
-        pressionValueLabel.text = "hPA"
+        pressionValueLabel.text = ""
         pressionValueLabel.font = .systemFont(ofSize: 14, weight: .medium)
         pressionValueLabel.textColor = UIColor(red: 233.0 / 255.0, green: 250.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
         pressionValueLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -109,6 +109,8 @@ class MainView: UIView {
     // MARK: - set func
     
     func setupData(resultFiveDay: OfferModel) {
+        precipitationTitleLabel.text = "Precipitation"
+        pressionTitleLabel.text = "Atmo pressure"
         precipitationValueLabel.text = precipitationConvert(value: (resultFiveDay.list?.first?.pop)!) + "%"
         pressionValueLabel.text = String((resultFiveDay.list?.first?.main?.pressure)!) + " hPA"
     }

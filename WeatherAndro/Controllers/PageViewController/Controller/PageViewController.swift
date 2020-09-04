@@ -9,11 +9,13 @@ import UIKit
 
 class PageViewController: UIPageViewController {
     
-    var delegateView = [UpScrollProtocol & HideShowArrowProtocol]()
-    
     // MARK: - Properties
         
     var viewControllerArray = [PageScrollViewController]()
+    
+    var delegateView = [UpScrollProtocol & HideShowArrowProtocol]()
+    
+    var pageControl: UIPageControl?
     
     // MARK: - viewDidLoad
     
@@ -22,6 +24,18 @@ class PageViewController: UIPageViewController {
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         setupBackgroundColor()
+    }
+    
+    // MARK: - viewDidLayoutSubviews
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        for subView in view.subviews {
+            if subView is UIPageControl {
+                pageControl = subView as? UIPageControl
+            }
+        }
     }
     
     // MARK: - Initializer
@@ -62,35 +76,29 @@ class PageViewController: UIPageViewController {
     
     private func setViewControllerArray() {
         let arrayCities = UserDefaults.standard.array(forKey: "Cities")
-           
-        //viewControllerArray.append(PageScrollViewController(type: .firstPage, cityInput: ""))
         
         // --------------------
-        let temp1 = PageScrollViewController(type: .firstPage, cityInput: "Moscow")
-        let temp2 = PageScrollViewController(type: .prevCity, cityInput: "London")
-        let temp3 = PageScrollViewController(type: .prevCity, cityInput: "New York")
-        
+        let temp1 = PageScrollViewController(type: .prevCity, cityInput: "Moscow")
+
+        temp1.delegate = self
         viewControllerArray.append(temp1)
-        viewControllerArray.append(temp2)
-        viewControllerArray.append(temp3)
-        
         delegateView.append(temp1)
-        delegateView.append(temp2)
-        delegateView.append(temp3)
-        
+
         delegateView.first?.hideLeftIcon()
         delegateView.last?.hideRightIcon()
-        
         // --------------------
         
         if let arrayCities = arrayCities {
-            var index = 0
-            
             for city in arrayCities {
-                viewControllerArray.append(PageScrollViewController(type: .prevCity, cityInput: city as! String))
-                index += 1
+                let tempViewController = PageScrollViewController(type: .prevCity, cityInput: city as? String ?? "")
+                tempViewController.delegate = self
+                delegateView.append(tempViewController)
+                viewControllerArray.append(tempViewController)
             }
         }
+        
+        delegateView.first?.hideLeftIcon()
+        delegateView.last?.hideRightIcon()
     }
     
 }
@@ -135,5 +143,58 @@ extension PageViewController: UIPageViewControllerDataSource, UIPageViewControll
         guard completed else { return }
         
         previousViewControllers.first?.setContentOffset()
+    }
+    
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return viewControllerArray.count
+    }
+    
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        return 0
+    }
+}
+
+extension PageViewController: ViewControllerDelegate {
+    func addNewCity() {
+        let vc = PageScrollViewController(type: .otherPage, cityInput: "")
+        vc.delegate = self
+        
+        viewControllerArray.append(vc)
+        pageControl?.numberOfPages = viewControllerArray.count
+        delegateView.last?.showRightIcon()
+        delegateView.append(vc)
+        delegateView.last?.hideRightIcon()
+        setViewControllers([viewControllerArray.last!], direction: .forward, animated: true, completion: nil)
+        pageControl?.currentPage = viewControllerArray.count - 1
+    }
+    
+    func deleteCurrentCity() {
+        if viewControllerArray.count == 1 {
+            return
+        }
+        
+        let currentPage = pageControl!.currentPage
+        var prevPage: Int
+        
+        var arrayCities = UserDefaults.standard.array(forKey: "Cities") as! [String]
+        arrayCities.remove(at: currentPage - 1)
+        UserDefaults.standard.set(arrayCities, forKey: "Cities")
+        
+        if currentPage == 0 {
+            prevPage = 1
+            delegateView[1].hideLeftIcon()
+        } else {
+            if currentPage == viewControllerArray.count - 1 {
+                delegateView[currentPage - 1].hideRightIcon()
+            }
+            
+            prevPage = currentPage - 1
+        }
+        
+        setViewControllers([viewControllerArray[prevPage]], direction: .forward, animated: true, completion: nil)
+        viewControllerArray.remove(at: currentPage)
+        delegateView.remove(at: currentPage)
+        pageControl?.numberOfPages = viewControllerArray.count
+        pageControl?.currentPage = prevPage
     }
 }
