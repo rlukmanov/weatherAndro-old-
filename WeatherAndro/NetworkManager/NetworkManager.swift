@@ -65,6 +65,7 @@ class NetworkManager {
             if error == nil, let parsData = data {
 
                 guard let weather = try? self.decoder.decode(OfferModel.self, from: parsData) else {
+                    print("Unable to decode")
                     completion(nil)
                     return
                 }
@@ -77,18 +78,16 @@ class NetworkManager {
         }.resume()
     }
     
-    func getWeatherOneCallApi( /*coord: CLLocationCoordinate2D?,*/ completion: @escaping (OneCallApiModel?) -> Void ) {
+    func getWeatherOneCallApi(coord: CLLocationCoordinate2D?, completion: @escaping (OneCallApiModel?) -> Void ) {
         
-        let coordMoscow = CLLocationCoordinate2DMake(55.7522, 37.6156)
-        
-        // guard let coord = coord else { return }
+        guard let coord = coord else { return }
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.openweathermap.org"
         urlComponents.path = "/data/2.5/onecall"
-        urlComponents.queryItems = [URLQueryItem(name: "lat", value: String(coordMoscow.latitude)),
-                                    URLQueryItem(name: "lon", value: String(coordMoscow.longitude)),
+        urlComponents.queryItems = [URLQueryItem(name: "lat", value: String(coord.latitude)),
+                                    URLQueryItem(name: "lon", value: String(coord.longitude)),
                                     URLQueryItem(name: "exclude", value: "minutely"),
                                     URLQueryItem(name: "appid", value: "da9f74ec5dd6df3021ce4c5f8ecdc569")]
         

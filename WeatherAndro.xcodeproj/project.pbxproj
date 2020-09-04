@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E12D47B42501CC6600B41739 /* CoordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D47B32501CC6600B41739 /* CoordModel.swift */; };
+		E12D47B62501DA9100B41739 /* UpScrollProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D47B52501DA9100B41739 /* UpScrollProtocol.swift */; };
 		E12F1DB5250196CA007AD7B2 /* WeatherDailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12F1DB4250196CA007AD7B2 /* WeatherDailyModel.swift */; };
+		E12F1DB82501C4CB007AD7B2 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12F1DB72501C4CB007AD7B2 /* PageViewController.swift */; };
+		E12F1DBD2501C613007AD7B2 /* TypePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12F1DBC2501C613007AD7B2 /* TypePage.swift */; };
 		E147E3E924F82073004F2360 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E147E3E824F82073004F2360 /* AppDelegate.swift */; };
 		E147E3ED24F82073004F2360 /* PageScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E147E3EC24F82073004F2360 /* PageScrollViewController.swift */; };
 		E147E3F224F82079004F2360 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E147E3F124F82079004F2360 /* Assets.xcassets */; };
@@ -34,7 +38,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E12D47B32501CC6600B41739 /* CoordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordModel.swift; sourceTree = "<group>"; };
+		E12D47B52501DA9100B41739 /* UpScrollProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpScrollProtocol.swift; sourceTree = "<group>"; };
 		E12F1DB4250196CA007AD7B2 /* WeatherDailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDailyModel.swift; sourceTree = "<group>"; };
+		E12F1DB72501C4CB007AD7B2 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		E12F1DBC2501C613007AD7B2 /* TypePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypePage.swift; sourceTree = "<group>"; };
 		E147E3E524F82073004F2360 /* WeatherAndro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAndro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E147E3E824F82073004F2360 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E147E3EC24F82073004F2360 /* PageScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageScrollViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +81,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E12F1DB62501C4BD007AD7B2 /* PageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E12F1DBB2501C603007AD7B2 /* Model */,
+				E12F1DBA2501C59A007AD7B2 /* Controller */,
+			);
+			path = PageViewController;
+			sourceTree = "<group>";
+		};
+		E12F1DB92501C4D8007AD7B2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E12F1DB62501C4BD007AD7B2 /* PageViewController */,
+				E147E3FC24F8218B004F2360 /* PageScrollViewController */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E12F1DBA2501C59A007AD7B2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E12F1DB72501C4CB007AD7B2 /* PageViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E12F1DBB2501C603007AD7B2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E12F1DBC2501C613007AD7B2 /* TypePage.swift */,
+				E12D47B52501DA9100B41739 /* UpScrollProtocol.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E147E3DC24F82073004F2360 = {
 			isa = PBXGroup;
 			children = (
@@ -92,11 +135,9 @@
 		E147E3E724F82073004F2360 /* WeatherAndro */ = {
 			isa = PBXGroup;
 			children = (
-				E15B6B3C24FEAE74004027EC /* OneCallApiModel */,
-				E147E40324FC6CB6004F2360 /* FiveDayApiModel */,
 				E147E40024FC6C36004F2360 /* NetworkManager */,
+				E12F1DB92501C4D8007AD7B2 /* Controllers */,
 				E147E3FD24F82195004F2360 /* Delegate */,
-				E147E3FC24F8218B004F2360 /* PageScrollViewController */,
 				E147E3F124F82079004F2360 /* Assets.xcassets */,
 				E147E3F624F82079004F2360 /* Info.plist */,
 			);
@@ -125,6 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				E147E40124FC6C66004F2360 /* NetworkManager.swift */,
+				E15B6B3C24FEAE74004027EC /* OneCallApiModel */,
+				E147E40324FC6CB6004F2360 /* FiveDayApiModel */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -136,6 +179,7 @@
 				E147E40624FC6CF3004F2360 /* ListOfferModel.swift */,
 				E147E40824FC6D0C004F2360 /* MainOfferModel.swift */,
 				E147E40A24FC6D22004F2360 /* CityModel.swift */,
+				E12D47B32501CC6600B41739 /* CoordModel.swift */,
 				E147E40C24FC6D44004F2360 /* WeatherOfferModel.swift */,
 			);
 			path = FiveDayApiModel;
@@ -279,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E15B6B4024FEAF42004027EC /* CurrentModel.swift in Sources */,
+				E12D47B42501CC6600B41739 /* CoordModel.swift in Sources */,
 				E1AC9E7C24FEB85600F5C1D8 /* DailyModel.swift in Sources */,
 				E147E40724FC6CF3004F2360 /* ListOfferModel.swift in Sources */,
 				E1AC9E9025017E1900F5C1D8 /* WeatherHourlyModel.swift in Sources */,
@@ -291,12 +336,15 @@
 				E1AC9E8E25007FAC00F5C1D8 /* DetailsView.swift in Sources */,
 				E1AC9E882500655400F5C1D8 /* HourlyView.swift in Sources */,
 				E147E40F24FD1D14004F2360 /* LoadData.swift in Sources */,
+				E12F1DB82501C4CB007AD7B2 /* PageViewController.swift in Sources */,
 				E1AC9E8224FF07A100F5C1D8 /* HourlyModel.swift in Sources */,
 				E1AC9E7F24FEB8B600F5C1D8 /* TemperatureDailyModel.swift in Sources */,
 				E147E40524FC6CD5004F2360 /* OfferModel.swift in Sources */,
+				E12F1DBD2501C613007AD7B2 /* TypePage.swift in Sources */,
 				E1AC9E8C2500712600F5C1D8 /* MainView.swift in Sources */,
 				E147E40B24FC6D22004F2360 /* CityModel.swift in Sources */,
 				E147E3FF24FC6B63004F2360 /* Location.swift in Sources */,
+				E12D47B62501DA9100B41739 /* UpScrollProtocol.swift in Sources */,
 				E15B6B3E24FEAEBA004027EC /* OneCallApiModel.swift in Sources */,
 				E147E40924FC6D0C004F2360 /* MainOfferModel.swift in Sources */,
 				E15B6B4224FEB4C2004027EC /* WeatherCurrentModel.swift in Sources */,

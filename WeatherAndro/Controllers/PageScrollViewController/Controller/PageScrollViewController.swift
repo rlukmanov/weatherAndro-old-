@@ -13,6 +13,8 @@ class PageScrollViewController: UIViewController {
     
     let locationManager: CLLocationManager = CLLocationManager()
     
+    private var currentCity: String?
+    
     // MARK: - properties
 
     private let pageScrollView: UIScrollView = {
@@ -180,6 +182,18 @@ class PageScrollViewController: UIViewController {
         return apiNameLabel
     }()
     
+    // MARK: - Initializer
+    
+    init(type: typePage, cityInput: String) {
+        super.init(nibName: nil, bundle: nil)
+        
+        currentCity = cityInput
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - viewDidLoad func
 
     override func viewDidLoad() {
@@ -196,7 +210,7 @@ class PageScrollViewController: UIViewController {
         addSubviews()
         setupConstraints()
         
-        loadData(city: "Moscow")
+        loadData(city: currentCity ?? "Moscow")
     }
     
     // MARK: - preferredStatusBarStyle
@@ -415,5 +429,15 @@ extension PageScrollViewController: UIScrollViewDelegate {
         } else if percentage > 0.1 {
             dateTimeLabel.alpha = 0
         }
+    }
+}
+
+// MARK: - UpScrollProtocol
+
+extension PageScrollViewController: UpScrollProtocol {
+    func setContentOffset() {
+        pageScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        hourlyView.setContentOffset()
+        dailyView.setContentOffset()
     }
 }

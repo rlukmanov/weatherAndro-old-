@@ -146,6 +146,13 @@ class HourlyView: UIView {
         hourlyContentView.addSubview(hourlyPillarStackView)
     }
     
+    // MARK: - setContentOffset func
+    
+    func setContentOffset() {
+        hourlyInfoScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        hourlyArrowIconRightImageView.isHidden = false
+    }
+    
     // MARK: - set funcs
     
     func setupData(resultOneCall: OneCallApiModel) {

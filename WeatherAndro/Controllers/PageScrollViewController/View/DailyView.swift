@@ -143,6 +143,13 @@ class DailyView: UIView {
         dailyContentView.addSubview(dailyPillarStackView)
     }
     
+    // MARK: - setContentOffset func
+    
+    func setContentOffset() {
+        dailyInfoScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        dailyArrowIconRightImageView.isHidden = false
+    }
+    
     // MARK: - set funcs
     
     func setupData(resultOneCall: OneCallApiModel) {

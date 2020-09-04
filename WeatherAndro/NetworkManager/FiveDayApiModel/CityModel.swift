@@ -11,4 +11,5 @@ import Foundation
 class CityModel: Codable {
     var name: String? // City name
     var timezone: Int? // Shift in seconds from UTC
+    var coord: CoordModel?
 }

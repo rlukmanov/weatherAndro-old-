@@ -165,7 +165,7 @@ func getListHourlyPercipitation(hourlyList: [HourlyModel]) -> [String] {
     var probability: Int
     
     for i in 0..<8 {
-        probability = Int(round((hourlyList[3 * i + 1].pop)!) * 100)
+        probability = Int(round((hourlyList[3 * i + 1].pop)!  * 100))
         
         resultList.append(String(probability) + "%")
     }
@@ -218,7 +218,7 @@ func getListDailyPercipitation(dailyList: [DailyModel]) -> [String] {
     var probability: Int
     
     for i in 0..<7 {
-        probability = Int(round((dailyList[i].pop)!) * 100)
+        probability = Int(round((dailyList[i].pop)!  * 100))
         
         resultList.append(String(probability) + "%")
     }
